@@ -34,3 +34,23 @@ Ans:
      select product_id
      from Products
      where low_fats = 'Y' and recyclable = 'Y';
+
+# Q6: Write an SQL query to show the unique ID of each user, If a user does not have a unique ID replace just show null.
+
+Ans:
+select 
+  u.unique_id,
+  e.name
+from Employees e
+left join EmployeeUNI u
+on e.id = u.id;
+
+# Q7: Write an SQL query that reports the product_name, year, and price for each sale_id in the Sales table.
+Ans:
+select 
+  product_name,
+  year,
+  price
+from Sales
+natural join Product
+group by sale_id;
