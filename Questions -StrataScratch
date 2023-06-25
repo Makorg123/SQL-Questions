@@ -1,0 +1,11 @@
+# Q1: Find the number of workers by department who joined in or after April.Output the department name along with the corresponding number of workers.Sort records based on the number of workers in descending order.
+Anas : 
+select 
+       department,
+       count(worker_id) as Count
+from workers
+       where date(joining_date) >= '2014-04-01'
+group by department
+order by 2 desc;
+
+# Q2: 
