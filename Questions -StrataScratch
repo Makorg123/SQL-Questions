@@ -34,3 +34,30 @@ on a1.user_id = a2.user_id
        and a1.id <> a2.id
        and a1.created_at >= a2.created_at
        where datediff(a1.created_at, a2.created_at) <= 7;
+
+# Q4: Find the activity date and the pe_description of facilities with the name 'STREET CHURROS' and with a score of less than 95 points.
+
+Ans: 
+select 
+    activity_date,
+    pe_description
+from los_angeles_restaurant_health_inspections
+where facility_name = 'STREET CHURROS' and score < 95;
+
+# Q5: Find libraries who haven't provided the email address in circulation year 2016 but their notice preference definition is set to email.Output the library code.
+
+Ans: 
+select 
+    distinct home_library_code
+from library_usage
+where provided_email_address = 0 and notice_preference_definition = 'email'
+and circulation_active_year = '2016';
+
+# Q6: Find the base pay for Police Captains. Output the employee name along with the corresponding base pay.
+
+Ans: 
+select 
+employeename,
+basepay
+from sf_public_salaries
+where jobtitle like 'CAPTAIN%';
