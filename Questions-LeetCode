@@ -85,3 +85,42 @@ JOIN Activity e
 ON e.machine_id=s.machine_id
 WHERE s.activity_type='start' AND e.activity_type='end'
 GROUP BY s.machine_id;
+
+# Q11: Write an SQL query to report the name and bonus amount of each employee with a bonus less than 1000.
+Ans:
+select 
+     e.name as name,
+     b.bonus as bonus
+from Employee e
+left join Bonus b
+on e.empId = b.empId
+where bonus < 1000 and bonus is null;
+
+# Q12: Write an SQL query to find the number of times each student attended each exam. Return the result table ordered by student_id and subject_name.
+Ans:
+select 
+    s.student_id,
+    s.student_name,
+    sub.subject_name,
+    count(e.subject_name) as attended_exams
+from 
+    Students s
+cross join 
+    Subjects sub
+left join 
+    Examinations e
+    on s.student_id = e.student_id and sub.subject_name = e.subject_name
+group by 1,2,3
+order by 1,2;
+
+# Q13: Write an SQL query to report the managers with at least five direct reports.
+Ans:
+select 
+     name
+from 
+     Employee
+where Id in (
+     select managerId from Employee
+     group by managerId
+     having count(*) >= 5
+);
