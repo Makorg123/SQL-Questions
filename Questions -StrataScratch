@@ -61,3 +61,37 @@ employeename,
 basepay
 from sf_public_salaries
 where jobtitle like 'CAPTAIN%';
+
+# Q7: Write a query that calculates the difference between the highest salaries found in the marketing and engineering departments. Output just the absolute difference in salaries.
+
+Ans: 
+select
+    abs((select max(salary)
+from db_employee emp
+    join db_dept dept on emp.department_id = dept.id
+    where department = 'engineering') - 
+    (select max(salary)
+from db_employee emp
+    join db_dept dept
+    on emp.department_id = dept.id
+    where department = 'marketing')) as salary_diff;
+
+# Q8: Find employees who are earning more than their managers. Output the employee's first name along with the corresponding salary.
+Ans:
+select 
+       first_name,
+       salary
+from employee 
+where salary > 
+       (select salary from employee where id = manager_id);
+
+# Q9: Find the Olympics with the highest number of athletes. The Olympics game is a combination of the year and the season, and is found in the 'games' column. 
+      Output the Olympics along with the corresponding number of athletes.
+Ans:
+select 
+       games,
+       count(disinct id) as athlete
+from olympics_athletes_events
+group by games
+order by 2 desc
+limit 1;
