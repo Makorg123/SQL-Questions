@@ -105,3 +105,12 @@ select
        salary,
        avg(salary) over (partition by department)
 from employee;
+
+# Q11: Find the number of employees working in the Admin department that joined in April or later.
+Ans:
+select 
+       count(worker_id) as admin
+from 
+       worker
+where extract(month from joining_date) >= 4
+and department = 'Admin';
