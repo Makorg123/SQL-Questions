@@ -115,4 +115,28 @@ from
 where extract(month from joining_date) >= 4
 and department = 'Admin';
 
-# Q12: 
+# Q12: You have been asked to find the 5 most lucrative products in terms of total revenue for the first half of 2022 (from January to June inclusive).
+       Output their IDs and the total revenue.
+Ans:
+select   
+       product_id,
+       sum(cost_in_dollars * units_sold) as revenue
+from 
+       online_orders
+where 
+       date between '2022-01-01' and '2022-06-30'
+group by 
+       product_id
+order by 
+       2 desc
+limit 5;
+
+# Q12: Find the most profitable company from the financial sector. Output the result along with the continent.
+Ans:
+select 
+    company,
+    continent
+from 
+       forbes_global_2010_2014
+where sector = 'Financials'
+having max(marketvalue) ;
