@@ -121,14 +121,10 @@ Ans:
 select   
        product_id,
        sum(cost_in_dollars * units_sold) as revenue
-from 
-       online_orders
-where 
-       date between '2022-01-01' and '2022-06-30'
-group by 
-       product_id
-order by 
-       2 desc
+from online_orders
+where date between '2022-01-01' and '2022-06-30'
+group by product_id
+order by 2 desc
 limit 5;
 
 # Q12: Find the most profitable company from the financial sector. Output the result along with the continent.
@@ -140,3 +136,12 @@ from
        forbes_global_2010_2014
 where sector = 'Financials'
 having max(marketvalue) ;
+
+# Q13: Write a query that returns the number of unique users per client per month:
+Ans:
+select 
+       client_id,
+       extract(month from time_id) as month,
+       count(distinct user_id) as num_count
+from fact_events
+group by 1,2;
