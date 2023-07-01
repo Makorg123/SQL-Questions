@@ -155,3 +155,13 @@ select
 from dc_bikeshare_q1_2012
 group by 1
 order by 2 desc;
+
+# Q15: Count the number of user events performed by MacBookPro users. Output the result along with the event name. Sort the result based on the event count in the desc order.
+Ans: 
+select 
+       distinct event_name,
+       count(*) over(partition by event_name) as event_count
+from playbook_events
+where device like = 'macbook pro'
+order by 2 desc;
+
