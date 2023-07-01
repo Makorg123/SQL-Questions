@@ -165,3 +165,24 @@ from playbook_events
 where device like = 'macbook pro'
 order by 2 desc;
 
+# Q16: Find how many times each artist appeared on the Spotify ranking list. Output the artist name along with the corresponding number of occurrences.
+       Order records by the number of occurrences in descending order.
+Ans:
+select
+       distinct artist,
+       count(*) over(partition by artist) as no_occurences
+from spotify_worldwide_daily_song_ranking
+order by 2 desc;
+
+# Q17: Find all posts which were reacted to with a heart. For such posts output all columns from facebook_posts table.
+Ans:
+select 
+    post_id,
+    poster,
+    post_text,
+    post_keywords,
+    post_date
+from facebook_posts
+natural join facebook_reactions
+where reaction = 'heart'
+group by reaction;
