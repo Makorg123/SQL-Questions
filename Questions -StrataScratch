@@ -196,9 +196,27 @@ select
     last_name,
     city,
     order_details
-from customers
+from customers;
 left join orders
 on customers.id = orders.cust_id
 order by 1,2;
 
-# Q19:
+# Q19: Find all Lyft drivers who earn either equal to or less than 30k USD or equal to or more than 70k USD. Output all details related to retrieved records.
+Ans: 
+select *
+from 
+       lyft_drivers
+where yearly_salary <= 30000 or yearly_salary >= 70000;
+
+# Q20: Find the email activity rank for each user. Email activity rank is defined by the total number of emails sent. The user with the highest number of emails sent will have 
+       a rank of 1, and so on. Output the user, total emails, and their activity rank. Order records by the total emails in descending order. Sort users with the same number of 
+       emails in alphabetical order.In your rankings, return a unique value (i.e., a unique rank) even if multiple users have the same number of emails. For tie breaker use 
+       alphabetical order of the user usernames.
+Ans: 
+select 
+    from_user,
+    count(*) as total_emails,
+    row_number() over(order by count(*) desc, from_user asc)
+from google_gmail_emails
+group by from_user
+order by 2 desc;
