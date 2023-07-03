@@ -243,4 +243,16 @@ order by winner desc
 limit 1)
 select candidate from winner;
 
-# Q22:
+# Q22: Output ids of students with a median score from the writing SAT.
+Ans: 
+with cte as (
+select 
+    student_id, 
+    sat_writing,
+    row_number() over(order by sat_writing asc) rownumber
+from sat_scores
+)
+select student_id from sat_scores
+where sat_writing = (
+select sat_writing from cte
+where rownumber = (select (count(*)+1)/2 as person from sat_scores))
