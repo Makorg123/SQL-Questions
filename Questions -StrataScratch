@@ -220,3 +220,27 @@ select
 from google_gmail_emails
 group by from_user
 order by 2 desc;
+
+# Q21: The election is conducted in a city and everyone can vote for one or more candidates, or choose not to vote at all. Each person has 1 vote so if they vote for multiple 
+       candidates, their vote gets equally split across these candidates. For example, if a person votes for 2 candidates, these candidates receive an equivalent of 0.5 vote 
+       each.Find out who got the most votes and won the election. Output the name of the candidate or multiple names in case of a tie. To avoid issues with a floating-point 
+       error you can round the number of votes received by a candidate to 3 decimal places.
+Ans:
+with ct as(
+select voter, 1/count(1) as tot_votes
+from voting_results
+where candidate is not null
+group by voter),
+ct2 as (
+select r.*, ct.tot_votes from voting_results as r
+join ct
+on ct.voter = r.voter),
+winner as (
+select candidate, sum(tot_votes) as winner
+from ct2
+group by candidate
+order by winner desc
+limit 1)
+select candidate from winner;
+
+# Q22:
