@@ -272,3 +272,17 @@ select
        sum(case when pclass = 3 then 1 else 0 end) as third_class
 from titanic_survior
 group by survived;
+
+# Q24: Find the average total compensation based on employee titles and gender. Total compensation is calculated by adding both the salary and bonus of each employee. However, 
+       not every employee receives a bonus so disregard employees without bonuses in your calculation. Employee can receive more than one bonus.
+       Output the employee title, gender (i.e., sex), along with the average total compensation.
+Ans: 
+select 
+    a.employee_title,
+    a.sex,
+    avg(a.salary + b.ttl_bonus) as avg_compensation
+from sf_employee a 
+inner join (
+select worker_ref_id, sum(bonus) as ttl_bonus from sf_bonus group by worker_ref_id) b 
+on a.id = b.worker_ref_id
+group by a.employee_title, a.sex;
