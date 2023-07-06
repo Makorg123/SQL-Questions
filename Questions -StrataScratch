@@ -296,3 +296,12 @@ select
 from user_flags
 where flag_id is not null
 group by 1;
+
+# Q26: Find the review_text that received the highest number of  'cool' votes. Output the business name along with the review text with the highest number of 'cool' votes.
+Ans:
+select 
+    business_name,
+    review_text
+from yelp_reviews
+where cool = (select max(cool) from yelp_reviews);
+
